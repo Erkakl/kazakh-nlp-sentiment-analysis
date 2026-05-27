@@ -1,0 +1,37 @@
+{
+  "best_by_macro_f1": {
+    "model_name": "tfidf_multinomial_nb",
+    "accuracy": 0.8742278782466324,
+    "macro_f1": 0.7632381706377998,
+    "weighted_f1": 0.8675564316914495,
+    "negative_recall": 0.531732776617954,
+    "positive_recall": 0.9485147618185111
+  },
+  "best_by_accuracy": {
+    "model_name": "tfidf_logistic_regression_default",
+    "accuracy": 0.8807769591426657,
+    "macro_f1": 0.7607167667595092,
+    "weighted_f1": 0.8697901522960879,
+    "negative_recall": 0.4837160751565762,
+    "positive_recall": 0.9668991124796232
+  },
+  "best_by_negative_recall": {
+    "model_name": "tfidf_logistic_regression_balanced",
+    "accuracy": 0.8174443700230706,
+    "macro_f1": 0.7439188820203502,
+    "weighted_f1": 0.8322209507369506,
+    "negative_recall": 0.7899791231732777,
+    "positive_recall": 0.8234015576888245
+  },
+  "best_by_positive_recall": {
+    "model_name": "tfidf_logistic_regression_default",
+    "accuracy": 0.8807769591426657,
+    "macro_f1": 0.7607167667595092,
+    "weighted_f1": 0.8697901522960879,
+    "negative_recall": 0.4837160751565762,
+    "positive_recall": 0.9668991124796232
+  },
+  "imbalance_ratio": 4.610120663020333,
+  "negative_recall_gain_balanced_vs_nb": 0.25824634655532364,
+  "macro_f1_drop_balanced_vs_nb": 0.01931928861744958
+}

@@ -1,0 +1,14 @@
+website/node_modules/
+node_modules/
+
+ml/code/dataset/dataset/
+
+.DS_Store
+*.log
+*.tmp
+*.pyc
+__pycache__/
+
+website/.vite/
+website/.env
+website/.env.local

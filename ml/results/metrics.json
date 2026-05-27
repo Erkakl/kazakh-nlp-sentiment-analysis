@@ -1,0 +1,45 @@
+{
+  "model_name": "tfidf_multinomial_nb",
+  "accuracy": 0.8742278782466324,
+  "precision": 0.9032772746873653,
+  "recall": 0.9485147618185111,
+  "f1_score": 0.9253434642399612,
+  "macro_avg": {
+    "precision": 0.7973226764316306,
+    "recall": 0.7401237692182325,
+    "f1-score": 0.7632381706377998,
+    "support": 26874.0
+  },
+  "weighted_avg": {
+    "precision": 0.8655067510850011,
+    "recall": 0.8742278782466324,
+    "f1-score": 0.8675564316914495,
+    "support": 26874.0
+  },
+  "per_class": {
+    "negative": {
+      "precision": 0.6913680781758957,
+      "recall": 0.531732776617954,
+      "f1-score": 0.6011328770356384,
+      "support": 4790.0
+    },
+    "positive": {
+      "precision": 0.9032772746873653,
+      "recall": 0.9485147618185111,
+      "f1-score": 0.9253434642399612,
+      "support": 22084.0
+    }
+  },
+  "negative_recall": 0.531732776617954,
+  "positive_recall": 0.9485147618185111,
+  "confusion_matrix": [
+    [
+      2547,
+      2243
+    ],
+    [
+      1137,
+      20947
+    ]
+  ]
+}

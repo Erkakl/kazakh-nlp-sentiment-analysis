@@ -1,0 +1,13 @@
+Зерттеу қорытындысы
+
+Деректер жиынының көлемі: 134368 мәтін.
+Класс таралуы: negative = 23951, positive = 110417.
+Класстар тең емес: positive класы negative класынан 4.61 есе көп. Сондықтан модель көп жағдайда жиі кездесетін positive класына бейім болуы мүмкін.
+
+Macro F1 бойынша ең жақсы модель: tfidf_multinomial_nb (macro_f1 = 0.763238, accuracy = 0.874228).
+Negative recall бойынша ең жақсы модель: tfidf_logistic_regression_balanced (negative_recall = 0.789979, positive_recall = 0.823402).
+
+Accuracy көрсеткіші жалғыз өзі жеткіліксіз, себебі деректерде positive мысалдары әлдеқайда көп. Модель positive класын жиі таңдаса, жалпы accuracy жоғары көрінуі мүмкін, бірақ negative пікірлерді нашар табуы ықтимал.
+Сондықтан бұл жұмыста macro_f1, negative_recall, positive_recall және confusion matrix көрсеткіштері бірге қарастырылды.
+
+Қорытынды: class_weight='balanced' қолданылған модельдер negative_recall көрсеткішін арттырды, бірақ positive_recall және жалпы macro_f1 төмендеуі мүмкін. Бұл negative пікірлерді жақсырақ табу мен positive пікірлерді дұрыс сақтау арасында trade-off бар екенін көрсетеді.
