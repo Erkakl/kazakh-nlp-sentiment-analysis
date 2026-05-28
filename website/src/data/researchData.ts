@@ -202,6 +202,102 @@ export const definitionGroups = [
   },
 ];
 
+export const formulaGroups = [
+  {
+    title: "TF-IDF формулалары",
+    formulas: [
+      {
+        name: "TF",
+        expression: "TF(t, d) = n(t, d) / |d|",
+        explanation:
+          "t сөзінің d мәтінінде қаншалықты жиі кездесетінін көрсетеді. n(t, d) - сөздің саны, |d| - мәтіндегі барлық сөз саны.",
+      },
+      {
+        name: "IDF",
+        expression: "IDF(t) = log(N / DF(t))",
+        explanation:
+          "t сөзінің барлық мәтіндер ішінде қаншалықты сирек екенін көрсетеді. N - барлық мәтін саны, DF(t) - осы сөз кездесетін мәтіндер саны.",
+      },
+      {
+        name: "TF-IDF",
+        expression: "TF-IDF(t, d) = TF(t, d) * IDF(t)",
+        explanation:
+          "Сөз бір мәтінде жиі кездесіп, бірақ барлық мәтінде тым жиі кездеспесе, оның TF-IDF салмағы жоғары болады.",
+      },
+    ],
+  },
+  {
+    title: "Confusion matrix белгілері",
+    formulas: [
+      {
+        name: "TP",
+        expression: "True Positive",
+        explanation: "Positive пікірді модель positive деп дұрыс тапты.",
+      },
+      {
+        name: "TN",
+        expression: "True Negative",
+        explanation: "Negative пікірді модель negative деп дұрыс тапты.",
+      },
+      {
+        name: "FP",
+        expression: "False Positive",
+        explanation: "Negative пікірді модель қате positive деп белгіледі.",
+      },
+      {
+        name: "FN",
+        expression: "False Negative",
+        explanation: "Positive пікірді модель қате negative деп белгіледі.",
+      },
+    ],
+  },
+  {
+    title: "Бағалау метрикаларының формулалары",
+    formulas: [
+      {
+        name: "Accuracy",
+        expression: "Accuracy = (TP + TN) / (TP + TN + FP + FN)",
+        explanation: "Барлық мәтіндердің ішінен дұрыс классификацияланған үлесін көрсетеді.",
+      },
+      {
+        name: "Precision",
+        expression: "Precision = TP / (TP + FP)",
+        explanation: "Модель positive деп белгілеген пікірлердің қаншасы шынымен positive екенін көрсетеді.",
+      },
+      {
+        name: "Recall",
+        expression: "Recall = TP / (TP + FN)",
+        explanation: "Шынайы positive пікірлердің қаншасын модель дұрыс тапқанын көрсетеді.",
+      },
+      {
+        name: "F1-score",
+        expression: "F1 = 2 * Precision * Recall / (Precision + Recall)",
+        explanation: "Precision мен recall арасындағы теңгерімді көрсететін орташа метрика.",
+      },
+      {
+        name: "Macro-F1",
+        expression: "Macro-F1 = (F1_negative + F1_positive) / 2",
+        explanation: "Negative және positive класстарын тең салмақпен қарастырады.",
+      },
+      {
+        name: "Weighted-F1",
+        expression: "Weighted-F1 = sum(F1_c * support_c) / sum(support_c)",
+        explanation: "Әр класс F1 мәнін сол кластағы мәтін санына қарай салмақтап есептейді.",
+      },
+      {
+        name: "Negative recall",
+        expression: "Negative recall = TN / (TN + FP)",
+        explanation: "Шынайы negative пікірлердің қаншасын модель дұрыс negative деп тапқанын көрсетеді.",
+      },
+      {
+        name: "Positive recall",
+        expression: "Positive recall = TP / (TP + FN)",
+        explanation: "Шынайы positive пікірлердің қаншасын модель дұрыс positive деп тапқанын көрсетеді.",
+      },
+    ],
+  },
+];
+
 export const heroData = {
   section: "Қолданбалы математика секциясы",
   title: "Табиғи тілді өңдеу алгоритмдерін зерттеу",

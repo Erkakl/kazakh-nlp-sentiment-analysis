@@ -3,6 +3,7 @@ import { AlertTriangle, BookOpen, CheckCircle2, ChevronDown, ExternalLink, FileT
 import {
   datasetStats,
   definitionGroups,
+  formulaGroups,
   futureWork,
   keyFindings,
   metricLabels,
@@ -80,7 +81,7 @@ function DefinitionsSection({ activeSection }: { activeSection: SectionId }) {
             <span>
               <span className="block text-xl font-semibold text-white">Анықтама бөлімін ашу</span>
               <span className="mt-1 block text-sm leading-6 text-slate-300">
-                TF-IDF, модельдер, метрикалар және экспериментті түсінуге қажет терминдер.
+                TF-IDF, модельдер, метрикалар, формулалар және экспериментті түсінуге қажет терминдер.
               </span>
             </span>
           </span>
@@ -101,6 +102,24 @@ function DefinitionsSection({ activeSection }: { activeSection: SectionId }) {
                       </div>
                     ))}
                   </dl>
+                </div>
+              ))}
+            </div>
+            <div className="mt-7 space-y-5">
+              {formulaGroups.map((group) => (
+                <div key={group.title} className="rounded-lg border border-cyan-300/15 bg-cyan-300/[0.05] p-5">
+                  <h3 className="text-lg font-semibold text-cyanSoft">{group.title}</h3>
+                  <div className="mt-4 grid gap-4 lg:grid-cols-2">
+                    {group.formulas.map((formula) => (
+                      <div key={`${group.title}-${formula.name}`} className="rounded-md border border-white/10 bg-slate-950/35 p-4">
+                        <div className="text-sm font-semibold uppercase text-slate-400">{formula.name}</div>
+                        <div className="mt-2 overflow-x-auto rounded-md bg-slate-950/70 px-3 py-2 font-mono text-sm text-mintSoft">
+                          {formula.expression}
+                        </div>
+                        <p className="mt-3 text-sm leading-6 text-slate-300">{formula.explanation}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
