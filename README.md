@@ -97,6 +97,30 @@ pip install -r requirements.txt
 python kazakh_sentiment_pipeline.py
 ```
 
+## Terminal Sentiment Prediction
+
+You can classify a new review directly from the terminal. If `results/sentiment_model.joblib` does not exist yet, the script trains the default model once and saves it.
+
+Single review:
+
+```bash
+cd ml
+python predict_sentiment.py "Өте жақсы қосымша, маған ұнады"
+```
+
+Interactive mode:
+
+```bash
+cd ml
+python predict_sentiment.py
+```
+
+Example output:
+
+```text
+positive (1)
+```
+
 ## Experiment Results
 
 The polarity classification experiment uses 134368 texts:
@@ -212,6 +236,30 @@ unzip ml/code/dataset/kazsandra_dataset.zip -d ml/code/dataset
 cd ml
 pip install -r requirements.txt
 python kazakh_sentiment_pipeline.py
+```
+
+## Терминал арқылы sentiment анықтау
+
+Жаңа пікірді терминалдан енгізіп, модельдің жауабын көруге болады. Егер `results/sentiment_model.joblib` әлі жоқ болса, скрипт default модельді бір рет оқытып, сақтайды.
+
+Бір пікірді тексеру:
+
+```bash
+cd ml
+python predict_sentiment.py "Өте жақсы қосымша, маған ұнады"
+```
+
+Интерактив режим:
+
+```bash
+cd ml
+python predict_sentiment.py
+```
+
+Мысал нәтиже:
+
+```text
+positive (1)
 ```
 
 ## Эксперимент нәтижелері

@@ -15,6 +15,7 @@ from typing import Any
 os.environ.setdefault("MPLCONFIGDIR", "/tmp/matplotlib")
 
 import matplotlib.pyplot as plt
+import joblib
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
@@ -60,6 +61,12 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=Path("results"),
         help="Directory for plots and metric files.",
+    )
+    parser.add_argument(
+        "--model-output",
+        type=Path,
+        default=Path("results/sentiment_model.joblib"),
+        help="Path where the best trained model will be saved.",
     )
     parser.add_argument("--test-size", type=float, default=0.2)
     parser.add_argument("--random-state", type=int, default=RANDOM_STATE)
@@ -590,6 +597,20 @@ def save_plots(df: pd.DataFrame, metrics: dict[str, Any], results_dir: Path) -> 
     plot_class_distribution(df, results_dir / "class_distribution.png")
 
 
+def save_trained_model(model: Pipeline, model_name: str, output_path: Path) -> None:
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    joblib.dump(
+        {
+            "model": model,
+            "model_name": model_name,
+            "target_names": TARGET_NAMES,
+            "text_column": TEXT_COLUMN,
+            "label_column": LABEL_COLUMN,
+        },
+        output_path,
+    )
+
+
 def main() -> None:
     args = parse_args()
     dataset_dir = resolve_dataset_dir(args.dataset_dir)
@@ -613,9 +634,11 @@ def main() -> None:
 
     metrics_by_model: dict[str, dict[str, Any]] = {}
     predictions_by_model: dict[str, Any] = {}
+    trained_models: dict[str, Pipeline] = {}
     for model_name, model in build_models().items():
         print(f"\n=== Training {model_name} ===")
         model.fit(x_train, y_train)
+        trained_models[model_name] = model
         y_pred = model.predict(x_test)
         predictions_by_model[model_name] = y_pred
         metrics_by_model[model_name] = evaluate_model(model_name, y_test, y_pred)
@@ -642,12 +665,14 @@ def main() -> None:
     save_model_comparison(comparison_df, args.results_dir)
     save_error_examples(x_test, y_test, y_pred, args.results_dir)
     kz_summary = save_research_outputs(df, comparison_df, args.results_dir)
+    save_trained_model(trained_models[best_model_name], best_model_name, args.model_output)
 
     print("\n=== Honest conclusion about class imbalance ===")
     print(build_brief_analysis(metrics))
     print("\n=== Kazakh research summary ===")
     print(kz_summary)
     print(f"\nResults saved to: {args.results_dir.resolve()}")
+    print(f"Best model saved to: {args.model_output.resolve()}")
 
 
 if __name__ == "__main__":

@@ -8,6 +8,7 @@ ml/code/dataset/dataset/
 *.tmp
 *.pyc
 __pycache__/
+*.joblib
 
 website/.vite/
 website/.env
