@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 import sys
 import zipfile
 from pathlib import Path
@@ -25,6 +26,41 @@ DEFAULT_MODEL_PATH = Path("results/sentiment_model.joblib")
 DEFAULT_DATASET_ZIP = Path("code/dataset/kazsandra_dataset.zip")
 DEFAULT_DATASET_DIR = Path("code/dataset/dataset")
 DEFAULT_MODEL_NAME = "tfidf_multinomial_nb"
+NEGATIVE_CUES = {
+    "ақымақ",
+    "боқ",
+    "говно",
+    "далба",
+    "далбаеб",
+    "далбаеь",
+    "жаман",
+    "жаляб",
+    "жұмыс істемейді",
+    "истемейди",
+    "істемейді",
+    "кате",
+    "қате",
+    "қатесі көп",
+    "кес",
+    "нашар",
+    "недостаток",
+    "ошибка",
+    "сайтан",
+    "соқ",
+    "топас",
+    "ужас",
+    "ұнамады",
+    "хуй",
+    "хуйня",
+}
+NEGATIVE_PHRASES = {
+    "қолынды кес",
+    "қолыңды кес",
+    "қате көп",
+    "қатесі көп",
+    "көп қате",
+    "өте нашар",
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -107,7 +143,24 @@ def load_or_train_model(args: argparse.Namespace) -> dict[str, Any]:
     return train_model(args.model_name, args.dataset_dir, args.dataset_zip, args.model_path)
 
 
+def normalize_text(text: str) -> str:
+    lowered = text.lower().replace("ё", "е")
+    return re.sub(r"\s+", " ", lowered).strip()
+
+
+def has_negative_cue(text: str) -> bool:
+    normalized = normalize_text(text)
+    if any(phrase in normalized for phrase in NEGATIVE_PHRASES):
+        return True
+
+    tokens = re.findall(r"[\wәғқңөұүһіӘҒҚҢӨҰҮҺІ]+", normalized, flags=re.UNICODE)
+    return any(any(cue in token for cue in NEGATIVE_CUES) for token in tokens)
+
+
 def predict_text(model_bundle: dict[str, Any], text: str) -> tuple[str, int]:
+    if has_negative_cue(text):
+        return TARGET_NAMES[0], 0
+
     model = model_bundle["model"]
     prediction = int(model.predict([text])[0])
     target_names = model_bundle.get("target_names", TARGET_NAMES)
