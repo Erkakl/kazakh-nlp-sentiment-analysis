@@ -17,6 +17,7 @@ import type { LucideIcon } from "lucide-react";
 
 export type SectionId =
   | "hero"
+  | "definitions"
   | "relevance"
   | "goal"
   | "dataset"
@@ -78,6 +79,7 @@ export type UseCase = {
 
 export const navItems: NavItem[] = [
   { id: "hero", label: "Басты бет" },
+  { id: "definitions", label: "Анықтама" },
   { id: "relevance", label: "Өзектілік" },
   { id: "goal", label: "Мақсат" },
   { id: "dataset", label: "Деректер" },
@@ -90,6 +92,114 @@ export const navItems: NavItem[] = [
   { id: "use-cases", label: "Қолдану бағыттары" },
   { id: "future-work", label: "Болашақ жұмыс" },
   { id: "conclusion", label: "Қорытынды" },
+];
+
+export const definitionGroups = [
+  {
+    title: "TF-IDF",
+    items: [
+      {
+        term: "TF-IDF",
+        description:
+          "Мәтіндегі маңызды сөздерді анықтап, мәтінді машиналық оқыту модельдеріне арналған сандық форматқа түрлендіретін әдіс.",
+      },
+      {
+        term: "TF (Term Frequency)",
+        description:
+          "Белгілі бір сөздің бір мәтін ішінде қаншалықты жиі кездесетінін көрсетеді. Сөз мәтінде жиі кездессе, оның TF мәні жоғары болады.",
+      },
+      {
+        term: "IDF (Inverse Document Frequency)",
+        description:
+          "Сөздің барлық мәтіндер арасында қаншалықты сирек немесе ерекше екенін көрсетеді. Барлық жерде кездесетін сөздердің салмағы төмендейді.",
+      },
+      {
+        term: "Сандық вектор",
+        description:
+          "Модель мәтінді тікелей түсінбейді, сондықтан TF-IDF әр пікірді сандар жиынына айналдырады. Осы сандар арқылы модель positive немесе negative классын үйренеді.",
+      },
+    ],
+  },
+  {
+    title: "Оқытылған модельдер",
+    items: [
+      {
+        term: "Multinomial Naive Bayes",
+        description:
+          "Сөздердің жиілігіне сүйенетін жылдам baseline модель. Мәтін классификациясында жиі қолданылады.",
+      },
+      {
+        term: "Logistic Regression",
+        description:
+          "TF-IDF белгілерін қолданып, мәтіннің positive немесе negative болу ықтималдығын есептейтін сызықтық модель.",
+      },
+      {
+        term: "Balanced Logistic Regression",
+        description:
+          "Класстар теңгерімсіз болғанда сирек кездесетін класқа көбірек салмақ береді. Бұл жобада negative пікірлерді жақсырақ табуға көмектеседі.",
+      },
+      {
+        term: "Balanced LinearSVC",
+        description:
+          "Мәтіндік векторлармен жақсы жұмыс істейтін сызықтық SVM моделі. Balanced нұсқасы negative және positive класстардың теңгерімсіздігін ескереді.",
+      },
+    ],
+  },
+  {
+    title: "Бағалау метрикалары",
+    items: [
+      {
+        term: "Accuracy",
+        description:
+          "Барлық болжамдардың ішінен қаншасы дұрыс болғанын көрсетеді. Бірақ класстар теңгерімсіз болса, accuracy жалғыз өзі жеткіліксіз.",
+      },
+      {
+        term: "Macro-F1",
+        description:
+          "Әр класстың F1-score мәнін жеке есептеп, оларды тең салмақпен орташа алады. Negative және positive класстарға бірдей мән береді.",
+      },
+      {
+        term: "Weighted-F1",
+        description:
+          "F1-score мәндерін класстардың санына қарай салмақтап орташа есептейді. Үлкен класс нәтижеге көбірек әсер етеді.",
+      },
+      {
+        term: "Negative recall",
+        description:
+          "Нақты negative пікірлердің қаншасын модель дұрыс negative деп тапқанын көрсетеді. Бұл жаман пікірлерді өткізіп алмау үшін маңызды.",
+      },
+      {
+        term: "Positive recall",
+        description:
+          "Нақты positive пікірлердің қаншасын модель дұрыс positive деп тапқанын көрсетеді.",
+      },
+    ],
+  },
+  {
+    title: "Қосымша ұғымдар",
+    items: [
+      {
+        term: "Sentiment analysis",
+        description:
+          "Мәтіндегі пікір реңкін анықтау міндеті. Бұл жобада пікір positive немесе negative болып бөлінеді.",
+      },
+      {
+        term: "Dataset imbalance",
+        description:
+          "Класстар санының тең болмауы. KazSAnDRA polarity деректерінде positive пікірлер negative пікірлерден 4.61 есе көп.",
+      },
+      {
+        term: "Confusion matrix",
+        description:
+          "Модельдің дұрыс және қате жауаптарын кесте түрінде көрсетеді. Ол қай класста қате көп екенін көруге көмектеседі.",
+      },
+      {
+        term: "Baseline model",
+        description:
+          "Кейінгі күрделі модельдермен салыстыруға арналған бастапқы қарапайым модель. Бұл жобада классикалық TF-IDF модельдері baseline ретінде қолданылды.",
+      },
+    ],
+  },
 ];
 
 export const heroData = {

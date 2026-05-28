@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
-import { AlertTriangle, CheckCircle2, ExternalLink, FileText, Goal, Quote, Sparkles } from "lucide-react";
+import { AlertTriangle, BookOpen, CheckCircle2, ChevronDown, ExternalLink, FileText, Goal, Quote, Sparkles } from "lucide-react";
 import {
   datasetStats,
+  definitionGroups,
   futureWork,
   keyFindings,
   metricLabels,
@@ -44,6 +45,7 @@ function App() {
       <MobileNav navItems={navItems} activeSection={activeSection} />
       <main className="lg:ml-[260px]">
         <Hero />
+        <DefinitionsSection activeSection={activeSection} />
         <RelevanceSection activeSection={activeSection} />
         <GoalSection activeSection={activeSection} />
         <DatasetSection activeSection={activeSection} />
@@ -58,6 +60,54 @@ function App() {
         <ConclusionSection activeSection={activeSection} />
       </main>
     </div>
+  );
+}
+
+function DefinitionsSection({ activeSection }: { activeSection: SectionId }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Section id="definitions" eyebrow="Анықтама" title="Жобада қолданылған негізгі ұғымдар" activeSection={activeSection}>
+      <GlassCard accent="cyan" className="p-5 sm:p-7">
+        <button
+          type="button"
+          onClick={() => setOpen((value) => !value)}
+          aria-expanded={open}
+          className="flex w-full items-center justify-between gap-4 text-left"
+        >
+          <span className="flex min-w-0 items-center gap-3">
+            <BookOpen className="shrink-0 text-cyanSoft" size={28} />
+            <span>
+              <span className="block text-xl font-semibold text-white">Анықтама бөлімін ашу</span>
+              <span className="mt-1 block text-sm leading-6 text-slate-300">
+                TF-IDF, модельдер, метрикалар және экспериментті түсінуге қажет терминдер.
+              </span>
+            </span>
+          </span>
+          <ChevronDown className={`shrink-0 text-cyanSoft transition ${open ? "rotate-180" : ""}`} />
+        </button>
+
+        <div className={`grid transition-all duration-300 ${open ? "mt-7 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
+          <div className="overflow-hidden">
+            <div className="grid gap-5 lg:grid-cols-2">
+              {definitionGroups.map((group) => (
+                <div key={group.title} className="rounded-lg border border-white/10 bg-white/[0.04] p-5">
+                  <h3 className="text-lg font-semibold text-cyanSoft">{group.title}</h3>
+                  <dl className="mt-4 space-y-4">
+                    {group.items.map((item) => (
+                      <div key={item.term}>
+                        <dt className="font-semibold text-white">{item.term}</dt>
+                        <dd className="mt-1 text-sm leading-6 text-slate-300">{item.description}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </GlassCard>
+    </Section>
   );
 }
 
