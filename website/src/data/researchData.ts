@@ -23,6 +23,9 @@ export type SectionId =
   | "dataset"
   | "pipeline"
   | "working-principle"
+  | "vector-formulas"
+  | "classification-formulas"
+  | "evaluation-formulas"
   | "models"
   | "metrics"
   | "results"
@@ -86,6 +89,9 @@ export const navItems: NavItem[] = [
   { id: "dataset", label: "Деректер" },
   { id: "pipeline", label: "Pipeline" },
   { id: "working-principle", label: "Жұмыс принципі" },
+  { id: "vector-formulas", label: "Векторлау формулалары" },
+  { id: "classification-formulas", label: "Классификация формулалары" },
+  { id: "evaluation-formulas", label: "Бағалау формулалары" },
   { id: "models", label: "Модельдер" },
   { id: "metrics", label: "Метрикалар" },
   { id: "results", label: "Нәтижелер" },
