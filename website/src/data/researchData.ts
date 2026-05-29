@@ -22,6 +22,7 @@ export type SectionId =
   | "goal"
   | "dataset"
   | "pipeline"
+  | "working-principle"
   | "models"
   | "metrics"
   | "results"
@@ -84,6 +85,7 @@ export const navItems: NavItem[] = [
   { id: "goal", label: "Мақсат" },
   { id: "dataset", label: "Деректер" },
   { id: "pipeline", label: "Pipeline" },
+  { id: "working-principle", label: "Жұмыс принципі" },
   { id: "models", label: "Модельдер" },
   { id: "metrics", label: "Метрикалар" },
   { id: "results", label: "Нәтижелер" },
@@ -358,6 +360,152 @@ export const pipelineExplanations = [
     title: "Бағалау қалай сақталады?",
     description:
       "Әр модельдің метрикалары, салыстыру кестесі, қателесу матрицасы және қате мысалдары results қалтасына сақталады.",
+  },
+];
+
+export const workingPrinciples = [
+  {
+    title: "1. Мәтінді қабылдау",
+    description:
+      "Жүйе қазақ тіліндегі пікірді алады. Мысалы, қолданушының әлеуметтік желідегі немесе тауар туралы жазған мәтіні бастапқы дерек болады.",
+  },
+  {
+    title: "2. Мәтінді тазалау",
+    description:
+      "Артық таңбалар, қажетсіз бос орындар және модельге кедергі болатын элементтер азайтылады. Нәтижесінде сөздер біркелкі форматқа келеді.",
+  },
+  {
+    title: "3. Сандық векторға айналдыру",
+    description:
+      "Компьютер мәтінді тікелей түсінбейді, сондықтан әр пікір TF-IDF арқылы сандар жиынына айналады. Әр сан белгілі бір сөздің осы пікір үшін қаншалықты маңызды екенін көрсетеді.",
+  },
+  {
+    title: "4. Модель арқылы болжау",
+    description:
+      "Оқытылған модель TF-IDF векторын қабылдап, пікірдің positive немесе negative классына жату ықтималдығын есептейді.",
+  },
+  {
+    title: "5. Нәтижені бағалау",
+    description:
+      "Болжамдар нақты жауаптармен салыстырылады. Accuracy, precision, recall және F1-score модельдің қай жерде жақсы, қай жерде әлсіз екенін көрсетеді.",
+  },
+];
+
+export const workingFormulaGroups = [
+  {
+    title: "Мәтінді векторлау",
+    formulas: [
+      {
+        name: "Term Frequency",
+        expression: "TF(t, d) = n(t, d) / |d|",
+        meaning: "Сөздің бір мәтін ішіндегі жиілігін есептейді.",
+        variables: [
+          { symbol: "t", description: "қарастырылып отырған сөз" },
+          { symbol: "d", description: "бір мәтін немесе бір пікір" },
+          { symbol: "n(t, d)", description: "t сөзінің d мәтінінде неше рет кездескені" },
+          { symbol: "|d|", description: "d мәтініндегі барлық сөз саны" },
+          { symbol: "TF(t, d)", description: "t сөзінің d мәтініндегі салыстырмалы жиілігі" },
+        ],
+      },
+      {
+        name: "Inverse Document Frequency",
+        expression: "IDF(t) = log(N / DF(t))",
+        meaning: "Сөздің барлық мәтіндер арасында қаншалықты сирек екенін өлшейді.",
+        variables: [
+          { symbol: "N", description: "деректер жиынындағы барлық мәтін саны" },
+          { symbol: "DF(t)", description: "t сөзі кездесетін мәтіндер саны" },
+          { symbol: "log", description: "логарифм, өте үлкен айырмашылықтарды ықшамдау үшін қолданылады" },
+          { symbol: "IDF(t)", description: "t сөзінің сиректік салмағы" },
+        ],
+      },
+      {
+        name: "TF-IDF салмағы",
+        expression: "w(t, d) = TF(t, d) * IDF(t)",
+        meaning: "Сөздің нақты мәтіндегі жалпы маңыздылығын береді.",
+        variables: [
+          { symbol: "w(t, d)", description: "t сөзінің d мәтініндегі соңғы TF-IDF салмағы" },
+          { symbol: "TF(t, d)", description: "сөздің мәтін ішіндегі жиілігі" },
+          { symbol: "IDF(t)", description: "сөздің барлық мәтіндер бойынша сиректік салмағы" },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Классификация",
+    formulas: [
+      {
+        name: "Логистикалық ықтималдық",
+        expression: "P(y = 1 | x) = 1 / (1 + e^(-z)), z = b + sum(w_i * x_i)",
+        meaning:
+          "Logistic Regression мәтіннің positive классына жату ықтималдығын есептейді. Ықтималдық 0 мен 1 арасында болады.",
+        variables: [
+          { symbol: "x", description: "мәтіннің TF-IDF векторы" },
+          { symbol: "x_i", description: "вектордағы i-белгінің мәні, яғни бір сөздің TF-IDF салмағы" },
+          { symbol: "w_i", description: "модель үйренген i-белгінің салмағы" },
+          { symbol: "b", description: "модельдің бос мүшесі, бастапқы ығысу мәні" },
+          { symbol: "z", description: "барлық салмақталған белгілердің қосындысы" },
+          { symbol: "e", description: "натурал логарифм негізі, шамамен 2.718" },
+          { symbol: "P(y = 1 | x)", description: "x мәтіні positive класс болуының ықтималдығы" },
+          { symbol: "y", description: "мәтіннің класы: 1 - positive, 0 - negative" },
+        ],
+      },
+      {
+        name: "Сызықтық SVM шешімі",
+        expression: "score(x) = b + sum(w_i * x_i)",
+        meaning:
+          "LinearSVC мәтінді екі класстың біріне бөлу үшін шешім шекарасынан қай жақта тұрғанын есептейді.",
+        variables: [
+          { symbol: "score(x)", description: "мәтіннің шешім шекарасына қатысты бағасы" },
+          { symbol: "x_i", description: "TF-IDF векторындағы i-белгі" },
+          { symbol: "w_i", description: "сол белгінің модельдегі салмағы" },
+          { symbol: "b", description: "шешім шекарасын жылжытатын бос мүше" },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Бағалау",
+    formulas: [
+      {
+        name: "Accuracy",
+        expression: "Accuracy = (TP + TN) / (TP + TN + FP + FN)",
+        meaning: "Барлық болжамның ішінен дұрыс жауаптардың үлесін көрсетеді.",
+        variables: [
+          { symbol: "TP", description: "positive пікірді positive деп дұрыс табу" },
+          { symbol: "TN", description: "negative пікірді negative деп дұрыс табу" },
+          { symbol: "FP", description: "negative пікірді қате positive деп белгілеу" },
+          { symbol: "FN", description: "positive пікірді қате negative деп белгілеу" },
+        ],
+      },
+      {
+        name: "Precision",
+        expression: "Precision = TP / (TP + FP)",
+        meaning: "Модель positive деді деген болжамдардың қаншасы шынымен positive екенін көрсетеді.",
+        variables: [
+          { symbol: "TP", description: "дұрыс positive болжамдар саны" },
+          { symbol: "FP", description: "қате positive болжамдар саны" },
+        ],
+      },
+      {
+        name: "Recall",
+        expression: "Recall = TP / (TP + FN)",
+        meaning: "Шынайы positive пікірлердің қаншасын модель тауып алғанын көрсетеді.",
+        variables: [
+          { symbol: "TP", description: "табылған positive пікірлер саны" },
+          { symbol: "FN", description: "өткізіліп кеткен positive пікірлер саны" },
+        ],
+      },
+      {
+        name: "F1-score",
+        expression: "F1 = 2 * Precision * Recall / (Precision + Recall)",
+        meaning: "Precision мен recall арасындағы теңгерімді бір санмен көрсетеді.",
+        variables: [
+          { symbol: "Precision", description: "positive болжамдардың нақтылығы" },
+          { symbol: "Recall", description: "positive пікірлерді табу толықтығы" },
+          { symbol: "F1", description: "precision және recall теңгерімінің көрсеткіші" },
+        ],
+      },
+    ],
   },
 ];
 

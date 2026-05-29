@@ -5,7 +5,7 @@ import { GlassCard } from "./GlassCard";
 
 export function Hero() {
   return (
-    <section id="hero" className="relative flex min-h-screen scroll-mt-20 items-center overflow-hidden pt-20">
+    <section id="hero" className="presentation-slide relative flex min-h-screen scroll-mt-20 items-center overflow-hidden pt-20">
       <div className="absolute inset-0 hero-visual-grid opacity-40" />
       <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#07111f] to-transparent" />
       <div className="relative mx-auto grid w-full max-w-[1180px] items-center gap-10 px-4 pb-20 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-10">

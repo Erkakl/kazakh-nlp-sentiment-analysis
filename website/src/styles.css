@@ -14,6 +14,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
 }
 
 body {
@@ -126,4 +127,21 @@ a {
 
 .text-balance {
   text-wrap: balance;
+}
+
+.presentation-slide {
+  position: relative;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.presentation-slide::after {
+  content: "";
+  position: absolute;
+  inset: auto 24px 18px auto;
+  width: min(180px, 28vw);
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(103, 232, 249, 0), rgba(103, 232, 249, 0.85));
+  opacity: 0.75;
 }

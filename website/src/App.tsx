@@ -1,5 +1,17 @@
 import { useMemo, useState } from "react";
-import { AlertTriangle, BookOpen, CheckCircle2, ChevronDown, ExternalLink, FileText, Goal, Quote, Sparkles } from "lucide-react";
+import {
+  AlertTriangle,
+  BookOpen,
+  Calculator,
+  CheckCircle2,
+  ChevronDown,
+  ExternalLink,
+  FileText,
+  Goal,
+  Quote,
+  Sparkles,
+  Workflow,
+} from "lucide-react";
 import {
   datasetStats,
   definitionGroups,
@@ -15,6 +27,8 @@ import {
   researchGoal,
   researchTasks,
   useCases,
+  workingFormulaGroups,
+  workingPrinciples,
 } from "./data/researchData";
 import type { MetricKey, SectionId } from "./data/researchData";
 import { useActiveSection } from "./hooks/useActiveSection";
@@ -51,6 +65,7 @@ function App() {
         <GoalSection activeSection={activeSection} />
         <DatasetSection activeSection={activeSection} />
         <PipelineSection activeSection={activeSection} />
+        <WorkingPrincipleSection activeSection={activeSection} />
         <ModelsSection activeSection={activeSection} />
         <MetricsSection activeSection={activeSection} />
         <ResultsSection activeSection={activeSection} />
@@ -202,6 +217,59 @@ function PipelineSection({ activeSection }: { activeSection: SectionId }) {
         {pipelineExplanations.map((item, index) => (
           <ExpandableCard key={item.title} {...item} defaultOpen={index === 0} />
         ))}
+      </div>
+    </Section>
+  );
+}
+
+function WorkingPrincipleSection({ activeSection }: { activeSection: SectionId }) {
+  return (
+    <Section id="working-principle" eyebrow="Жұмыс принципі" title="NLP жүйесі мәтінді қалай түсінеді?" activeSection={activeSection}>
+      <div className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]">
+        <GlassCard accent="emerald" className="p-6">
+          <div className="mb-5 flex items-center gap-3">
+            <Workflow className="text-mintSoft" size={28} />
+            <h3 className="text-2xl font-semibold text-white">Алгоритм логикасы</h3>
+          </div>
+          <div className="space-y-3">
+            {workingPrinciples.map((item) => (
+              <div key={item.title} className="rounded-lg border border-white/10 bg-white/[0.045] p-4">
+                <h4 className="font-semibold text-cyanSoft">{item.title}</h4>
+                <p className="mt-2 text-sm leading-6 text-slate-300">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </GlassCard>
+
+        <div className="grid max-h-[68vh] gap-4 overflow-y-auto pr-1">
+          {workingFormulaGroups.map((group) => (
+            <GlassCard key={group.title} accent="cyan" className="p-5">
+              <div className="mb-4 flex items-center gap-3">
+                <Calculator className="text-cyanSoft" size={24} />
+                <h3 className="text-xl font-semibold text-white">{group.title}</h3>
+              </div>
+              <div className="grid gap-4 lg:grid-cols-2">
+                {group.formulas.map((formula) => (
+                  <div key={`${group.title}-${formula.name}`} className="rounded-lg border border-white/10 bg-slate-950/35 p-4">
+                    <div className="text-sm font-semibold uppercase text-slate-400">{formula.name}</div>
+                    <div className="mt-2 overflow-x-auto rounded-md bg-slate-950/75 px-3 py-2 font-mono text-sm text-mintSoft">
+                      {formula.expression}
+                    </div>
+                    <p className="mt-3 text-sm leading-6 text-slate-300">{formula.meaning}</p>
+                    <dl className="mt-3 grid gap-2 text-sm">
+                      {formula.variables.map((variable) => (
+                        <div key={`${formula.name}-${variable.symbol}`} className="grid gap-1 rounded-md bg-white/[0.045] px-3 py-2 sm:grid-cols-[120px_1fr]">
+                          <dt className="font-mono font-semibold text-cyanSoft">{variable.symbol}</dt>
+                          <dd className="leading-6 text-slate-300">{variable.description}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                ))}
+              </div>
+            </GlassCard>
+          ))}
+        </div>
       </div>
     </Section>
   );

@@ -1,4 +1,4 @@
-import{s as S}from"./icons-DzrDPh1F.js";var de={exports:{}},bt={};/**
+import{t as S}from"./icons-BKHh4p3p.js";var de={exports:{}},bt={};/**
  * @license React
  * react-jsx-runtime.production.js
  *

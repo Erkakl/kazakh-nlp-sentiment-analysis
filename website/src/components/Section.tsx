@@ -14,11 +14,11 @@ export function Section({ id, eyebrow, title, activeSection, children }: Section
   const active = id === activeSection;
 
   return (
-    <section id={id} className="min-h-[90vh] scroll-mt-20 py-24 md:py-28">
-      <div className="mx-auto w-full max-w-[1180px] px-4 sm:px-6 lg:px-10">
+    <section id={id} className="presentation-slide min-h-screen scroll-mt-20 px-0 py-20 md:py-24">
+      <div className="mx-auto flex min-h-[calc(100vh-10rem)] w-full max-w-[1180px] flex-col justify-center px-4 sm:px-6 lg:px-10">
         {(eyebrow || title) && (
           <motion.div
-            className="mb-10 max-w-4xl"
+            className="mb-8 max-w-4xl"
             animate={{ scale: active ? 1.01 : 1 }}
             transition={{ duration: 0.3 }}
           >
